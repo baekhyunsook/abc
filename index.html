@@ -1,0 +1,450 @@
+고등학교 영어 학습 홈페이지를 만들어드리겠습니다. 학생들이 흥미롭게 학습할 수 있는 다양한 기능을 포함한 웹사이트를 제작해보겠습니다.
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Hub - 영어 학습 허브</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo">English Learning Hub</h1>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link">홈</a></li>
+                    <li><a href="#vocabulary" class="nav-link">단어장</a></li>
+                    <li><a href="#grammar" class="nav-link">문법</a></li>
+                    <li><a href="#quiz" class="nav-link">퀴즈</a></li>
+                    <li><a href="#resources" class="nav-link">학습자료</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 홈 섹션 -->
+        <section id="home" class="section">
+            <div class="hero">
+                <h2>Welcome to English Learning Hub!</h2>
+                <p>영어 실력을 향상시킬 준비가 되셨나요?</p>
+                <button class="cta-button" onclick="scrollToSection('vocabulary')">학습 시작하기</button>
+            </div>
+            
+            <div class="daily-section">
+                <h3>오늘의 영어</h3>
+                <div class="daily-content">
+                    <div class="daily-word">
+                        <h4>오늘의 단어</h4>
+                        <p id="daily-word-display" class="word-display"></p>
+                        <p id="daily-word-meaning" class="word-meaning"></p>
+                    </div>
+                    <div class="daily-quote">
+                        <h4>오늘의 명언</h4>
+                        <p id="daily-quote-display" class="quote-display"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 단어장 섹션 -->
+        <section id="vocabulary" class="section">
+            <h2>단어장</h2>
+            <div class="vocab-container">
+                <div class="vocab-input">
+                    <input type="text" id="word-input" placeholder="영어 단어">
+                    <input type="text" id="meaning-input" placeholder="뜻">
+                    <button onclick="addWord()">단어 추가</button>
+                </div>
+                <div class="vocab-list" id="vocab-list"></div>
+                <div class="flashcard-container">
+                    <h3>플래시카드</h3>
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <p id="flashcard-word">단어를 추가해주세요</p>
+                            </div>
+                            <div class="flashcard-back">
+                                <p id="flashcard-meaning">뜻이 여기 표시됩니다</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="nextCard()">다음 카드</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 문법 섹션 -->
+        <section id="grammar" class="section">
+            <h2>문법 학습</h2>
+            <div class="grammar-topics">
+                <div class="topic-card" onclick="showGrammarDetail('present')">
+                    <h3>현재시제</h3>
+                    <p>Present Tense</p>
+                </div>
+                <div class="topic-card" onclick="showGrammarDetail('past')">
+                    <h3>과거시제</h3>
+                    <p>Past Tense</p>
+                </div>
+                <div class="topic-card" onclick="showGrammarDetail('future')">
+                    <h3>미래시제</h3>
+                    <p>Future Tense</p>
+                </div>
+                <div class="topic-card" onclick="showGrammarDetail('conditional')">
+                    <h3>가정법</h3>
+                    <p>Conditional</p>
+                </div>
+            </div>
+            <div id="grammar-detail" class="grammar-detail"></div>
+        </section>
+
+        <!-- 퀴즈 섹션 -->
+        <section id="quiz" class="section">
+            <h2>영어 퀴즈</h2>
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <p>점수: <span id="score">0</span></p>
+                    <p>문제: <span id="question-number">1</span>/5</p>
+                </div>
+                <div id="quiz-content">
+                    <h3 id="quiz-question"></h3>
+                    <div id="quiz-options" class="quiz-options"></div>
+                    <button id="next-question" onclick="nextQuestion()" style="display:none;">다음 문제</button>
+                </div>
+                <button onclick="startQuiz()">퀴즈 시작</button>
+            </div>
+        </section>
+
+        <!-- 학습자료 섹션 -->
+        <section id="resources" class="section">
+            <h2>학습 자료</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>읽기 자료</h3>
+                    <ul>
+                        <li><a href="#" onclick="showResource('reading1')">초급 읽기 연습</a></li>
+                        <li><a href="#" onclick="showResource('reading2')">중급 읽기 연습</a></li>
+                        <li><a href="#" onclick="showResource('reading3')">고급 읽기 연습</a></li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <h3>듣기 자료</h3>
+                    <ul>
+                        <li><a href="#" onclick="showResource('listening1')">일상 대화 듣기</a></li>
+                        <li><a href="#" onclick="showResource('listening2')">뉴스 듣기</a></li>
+                        <li><a href="#" onclick="showResource('listening3')">팟캐스트 추천</a></li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <h3>유용한 링크</h3>
+                    <ul>
+                        <li><a href="https://dictionary.cambridge.org/" target="_blank">Cambridge Dictionary</a></li>
+                        <li><a href="https://www.bbc.co.uk/learningenglish" target="_blank">BBC Learning English</a></li>
+                        <li><a href="https://learnenglish.britishcouncil.org/" target="_blank">British Council</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 English Learning Hub. 모든 권리 보유.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+```css
+/* style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* 네비게이션 바 */
+.navbar {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: #3498db;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #3498db;
+}
+
+/* 메인 컨텐츠 */
+main {
+    margin-top: 60px;
+}
+
+.section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 80vh;
+}
+
+/* 홈 섹션 */
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.cta-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #2980b9;
+}
+
+.daily-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.daily-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.daily-word, .daily-quote {
+    padding: 1.5rem;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+}
+
+.word-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 1rem 0;
+}
+
+.word-meaning {
+    color: #7f8c8d;
+}
+
+.quote-display {
+    font-style: italic;
+    color: #34495e;
+    margin-top: 1rem;
+}
+
+/* 단어장 섹션 */
+.vocab-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.vocab-input {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.vocab-input input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.vocab-input button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.vocab-input button:hover {
+    background-color: #229954;
+}
+
+.vocab-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+}
+
+.vocab-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.vocab-item button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* 플래시카드 */
+.flashcard-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.flashcard {
+    width: 300px;
+    height: 200px;
+    margin: 2rem auto;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.flashcard-front {
+    background-color: #3498db;
+    color: white;
+}
+
+.flashcard-back {
+    background-color: #2ecc71;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+/* 문법 섹션 */
+.grammar-topics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.topic-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.topic-card:hover {
+    transform: translateY(-5px);
+}
+
+.topic-card h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.topic-card p {
+    color: #7f8c8d;
+}
+
+.grammar-detail {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+    display: none;
+}
+
+/* 퀴즈 섹션 */
+.quiz-container {
+    background-color: white;
+    padding: 2rem
